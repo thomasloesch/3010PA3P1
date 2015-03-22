@@ -24,16 +24,32 @@ public class Connect4Game {
 		for(int i = 0; i < gameArray.length; i++) gameArray[i] = new Column();
 	}
 	
-	public boolean makeMove(int col) { return gameArray[col].add(gameState); }
+	public boolean makeMove(int col) { 
+		boolean retval = gameArray[col].add(gameState); 
+		
+		if(retval){
+			if(gameState == 1)
+				gameState = 2;
+			else
+				gameState = 1;
+		}
+		
+		return retval;
+	}
 	
 	public int getGameState() { return gameState; }
 	
-	public void reset() { for(int i = 0; i < gameArray.length; i++) gameArray[i].reset(); }
+	public void reset() { for(int i = 0; i < gameArray.length; i++) gameArray[i].reset(); gameState = 1;}
 	
 	public int getValueInLoc(int row, int col) { return gameArray[col].getLoc(row); }
 	
 	public ArrayList<Integer> getAllPossibleMoves() {
-		return null; 
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		
+		for(int i = 0; i < gameArray.length; i++)
+			temp.add(gameArray[i].getTop());
+		
+		return temp;
 	}
 	
 	private class Column {
@@ -48,7 +64,7 @@ public class Connect4Game {
 			return true;
 		}
 		
-		public int getTop() { return top; }
+		public int getTop() { if(top == 7) return -1; return top; }
 		
 		public int getLoc(int x) { return contents[x]; }
 		
