@@ -8,23 +8,24 @@ public class Connect4Game {
 	private int gameState;
 	private Column[] gameArray;
 	
-	public final int CHECKER_PLAYER_1 = 1;
-	public final int CHECKER_PLAYER_2 = 2;
+	public static final int CHECKER_PLAYER_1 = 1;
+	public static final int CHECKER_PLAYER_2 = 2;
 	
-	public final int ERROR = 0;
-	public final int PLAYER_1_TURN = 1;
-	public final int PLAYER_2_TURN = 2;
-	public final int PLAYER_1_WIN = 3;
-	public final int PLAYER_2_WIN = 4;
-	public final int TIE = 5;
+	public static final int ERROR = 0;
+	public static final int PLAYER_1_TURN = 1;
+	public static final int PLAYER_2_TURN = 2;
+	public static final int PLAYER_1_WIN = 3;
+	public static final int PLAYER_2_WIN = 4;
+	public static final int TIE = 5;
 	
-	public void Connect4Game() { 
+	public Connect4Game() { 
 		gameState = 1; 
 		gameArray = new Column[8];
 		for(int i = 0; i < gameArray.length; i++) gameArray[i] = new Column();
 	}
 	
 	public boolean makeMove(int col) { 
+		if(gameState != PLAYER_1_TURN || gameState != PLAYER_2_TURN) throw new IllegalStateException("You can't make a move right now");
 		boolean retval = gameArray[col].add(gameState); 
 		
 		if(retval){
